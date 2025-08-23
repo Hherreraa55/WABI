@@ -10,7 +10,7 @@ import { Smartphone, Building2, MapPin, User, CheckCircle, AlertCircle } from "l
 import axios from "axios";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const API = `${BACKEND_URL}api`;
 
 // Guatemala departments
 const GUATEMALA_DEPARTMENTS = [
@@ -23,7 +23,6 @@ const GUATEMALA_DEPARTMENTS = [
 function App() {
   const [formData, setFormData] = useState({
     nombre: "",
-    username: "",
     celular: "",
     nombre_negocio: "",
     departamento: "",
@@ -50,17 +49,6 @@ function App() {
         }
         break;
 
-      case 'username':
-        if (!value.trim()) {
-          newErrors.username = "El nombre de usuario es obligatorio";
-        } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
-          newErrors.username = "Solo letras, números y guiones bajos";
-        } else if (value.length > 50) {
-          newErrors.username = "Máximo 50 caracteres";
-        } else {
-          delete newErrors.username;
-        }
-        break;
 
       case 'celular':
       case 'numero_celular_negocio':
@@ -116,7 +104,7 @@ function App() {
   };
 
   const validateForm = () => {
-    const requiredFields = ['nombre', 'username', 'celular', 'nombre_negocio', 'departamento', 'municipio', 'numero_celular_negocio'];
+    const requiredFields = ['nombre', 'celular', 'nombre_negocio', 'departamento', 'municipio', 'numero_celular_negocio'];
     const newErrors = {};
 
     requiredFields.forEach(field => {
@@ -135,10 +123,6 @@ function App() {
       }
     });
 
-    // Validate username
-    if (formData.username && !/^[a-zA-Z0-9_]+$/.test(formData.username)) {
-      newErrors.username = "Solo letras, números y guiones bajos";
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -155,7 +139,7 @@ function App() {
     setSubmitError("");
 
     try {
-      const response = await axios.post(`${API}/register`, {
+      const response = await axios.post(`${API}/store/`, {
         ...formData,
         celular: formData.celular.replace(/[^\d]/g, ''),
         numero_celular_negocio: formData.numero_celular_negocio.replace(/[^\d]/g, '')
@@ -259,20 +243,6 @@ function App() {
                     {errors.nombre && <p className="text-sm text-red-600 mt-1">{errors.nombre}</p>}
                   </div>
 
-                  <div>
-                    <Label htmlFor="username" className="text-sm font-medium text-gray-700">
-                      Nombre de Usuario *
-                    </Label>
-                    <Input
-                      id="username"
-                      type="text"
-                      value={formData.username}
-                      onChange={(e) => handleInputChange('username', e.target.value)}
-                      className={`mt-1 ${errors.username ? 'border-red-300 focus:border-red-500' : ''}`}
-                      placeholder="usuario123"
-                    />
-                    {errors.username && <p className="text-sm text-red-600 mt-1">{errors.username}</p>}
-                  </div>
                 </div>
 
                 <div>
