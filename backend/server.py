@@ -158,6 +158,9 @@ async def register_user(user_data: UserRegistrationCreate):
         else:
             raise HTTPException(status_code=500, detail="Error al registrar usuario")
             
+    except HTTPException:
+        # Re-raise HTTPExceptions as they are
+        raise
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
