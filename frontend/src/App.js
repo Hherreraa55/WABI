@@ -255,7 +255,7 @@ function App() {
                       id="celular"
                       type="tel"
                       value={formData.celular}
-                      onChange={(e) => handleInputChange('celular', e.target.value)}
+                      onChange={(e) => handleInputChan('celular', e.target.value)}
                       className={`pl-10 ${errors.celular ? 'border-red-300 focus:border-red-500' : ''}`}
                       placeholder="502555566"
                     />
