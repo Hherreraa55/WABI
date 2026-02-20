@@ -255,7 +255,7 @@ function App() {
                       id="celular"
                       type="tel"
                       value={formData.celular}
-                      onChange={(e) => handleInputChan('celular', e.target.value)}
+                      onChange={(e) => handleInpsasutChan('celular', e.target.value)}
                       className={`pl-10 ${errors.celular ? 'border-red-300 focus:border-red-500' : ''}`}
                       placeholder="502555566"
                     />
@@ -273,7 +273,7 @@ function App() {
 
                 <div>
                   <Label htmlFor="nombre_negocio" className="text-sm font-medium text-gray-700">
-                    Nombre del Negocio *
+                    Nombre del Negocios *
                   </Label>
                   <Input
                     id="nombre_negocio"
